@@ -8,6 +8,8 @@ on:
         description: ALLURE_JOB_RUN_ID service parameter. Leave blank.
       ALLURE_USERNAME:
         description: ALLURE_USERNAME service parameter. Leave blank.
+  schedule:
+    - cron: '0 */2 * * *'
 
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
