@@ -20,7 +20,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
     - name: Generate Allure Report
-        run: npx allure-commandline generate allure-results --clean -o allure-report
+      run: npx allure-commandline generate allure-results --clean -o allure-report
     - name: Upload Allure Results (Artifacts)
       uses: actions/upload-artifact@v4
       with:
