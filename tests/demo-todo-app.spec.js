@@ -28,6 +28,10 @@ test.describe('New Todo', () => {
     // Create 2nd todo.
     await newTodo.fill(TODO_ITEMS[1]);
     await newTodo.press('Enter');
+    
+    // add screenshot
+    const screenshotPath = await page.screenshot({ path: 'allure-results/screenshot.png' });
+    test.info().attach('Screenshot', { body: screenshotPath, contentType: 'image/png' });
 
     // Make sure the list now has two todo items.
     await expect(page.getByTestId('todo-title')).toHaveText([
