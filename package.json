@@ -13,6 +13,8 @@
     "allure-playwright": "^3.1.0"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "playwright-msteams-reporter": "^0.0.12",
     "test-allure": "file:"
   }
 }

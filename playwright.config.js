@@ -1,5 +1,10 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { MsTeamsReporterOptions } from "playwright-msteams-reporter";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 /**
  * Read environment variables from file.
@@ -23,7 +28,18 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["line"], ["allure-playwright"]],
+  reporter: [
+    ["line"], 
+    ["allure-playwright"],
+    [
+      'playwright-msteams-reporter',
+      {
+        webhookUrl: process.env.WEBHOOK_URL,
+        webhookType: "msteams", // or "msteams"
+        linkToResultsUrl: process.env.ALLURE_REPORT_URL,
+      }
+    ]
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */

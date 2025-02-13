@@ -14,7 +14,7 @@ on:
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
   ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-  ALLURE_ENDPOINT: https://automationlopez.testops.cloud/
+  ALLURE_ENDPOINT: ${{ secrets.ALLURE_ENDPOINT }}
   ALLURE_PROJECT_ID: 1
   ALLURE_RESULTS: allure-results
 
@@ -22,6 +22,14 @@ jobs:
   playwright-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: 'Create env file'
+        run: |
+          touch .env
+       
+          echo WEBHOOK_URL=${{ secrets.WEBHOOK_URL }} >> .env
+          echo "The .env file has been created in the following path: $(pwd)/.env"
+          cat .env
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -42,3 +50,16 @@ jobs:
 
       - name: Run Playwright Tests with Allure Monitoring
         run: allurectl watch -- npx playwright test
+        
+      - name: Extract Allure Report URL
+        id: extract_url
+        run: |
+          echo "Extracting Allure report URL..."
+          REPORT_URL=$(grep -o 'https://[^ ]*allure[^ ]*' allure_output.log | tail -n 1)
+          echo "ALLURE_REPORT_URL=$REPORT_URL" >> $GITHUB_ENV
+          echo "ALLURE_REPORT_URL=$REPORT_URL" >> .env
+          echo "Allure Report URL: $REPORT_URL"
+
+      - name: Print Allure Report URL
+        run: |
+          echo "The Allure report is available at: $ALLURE_REPORT_URL"
