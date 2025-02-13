@@ -22,14 +22,6 @@ jobs:
   playwright-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Create env file'
-        run: |
-          touch .env
-       
-          echo WEBHOOK_URL=${{ secrets.WEBHOOK_URL }} >> .env
-          echo "The .env file has been created in the following path: $(pwd)/.env"
-          cat .env
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -44,6 +36,14 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo WEBHOOK_URL=${{ secrets.WEBHOOK_URL }} >> .env
+          echo ALLURE_REPORT_URL="https://your-allure-report-url" >> .env
+          echo "The .env file has been created:"
+          cat .env
 
       - name: Install allurectl
         uses: allure-framework/setup-allurectl@v1
