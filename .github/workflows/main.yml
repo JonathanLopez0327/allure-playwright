@@ -59,7 +59,7 @@ jobs:
           echo "ALLURE_REPORT_URL=$REPORT_URL" >> $GITHUB_ENV
           echo "ALLURE_REPORT_URL=$REPORT_URL" >> .env
           echo "Allure Report URL: $REPORT_URL"
+      
+      - name: Debug .env
+        run: cat .env
 
-      - name: Print Allure Report URL
-        run: |
-          echo "The Allure report is available at: $ALLURE_REPORT_URL"
