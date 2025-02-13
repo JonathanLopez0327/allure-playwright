@@ -51,14 +51,14 @@ jobs:
         id: run_tests
         run: allurectl watch -- npx playwright test | tee allure_output.log
 
-      - name: Extract Allure Report URL
-        id: extract_url
+      - name: Extract Allure Cloud Launch URL
+        id: extract_allure_launch
         run: |
-          echo "Extracting Allure report URL..."
-          REPORT_URL=$(grep -o 'https://[^ ]*allure[^ ]*' allure_output.log | tail -n 1)
-          echo "ALLURE_REPORT_URL=$REPORT_URL" >> $GITHUB_ENV
-          echo "ALLURE_REPORT_URL=$REPORT_URL" >> .env
-          echo "Allure Report URL: $REPORT_URL"
+          echo "Extracting Allure Cloud Launch URL..."
+          LAUNCH_URL=$(grep -o 'https://[^ ]*/jobrun/[0-9]*' allure_output.log | tail -n 1)
+          echo "ALLURE_LAUNCH_URL=$LAUNCH_URL" >> $GITHUB_ENV
+          echo "ALLURE_LAUNCH_URL=$LAUNCH_URL" >> .env
+          echo "Allure Launch URL: $LAUNCH_URL"
 
       - name: Debug .env
         run: cat .env

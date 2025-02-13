@@ -36,7 +36,7 @@ export default defineConfig({
       {
         webhookUrl: process.env.WEBHOOK_URL,
         webhookType: "msteams", // or "msteams"
-        linkToResultsUrl: process.env.ALLURE_REPORT_URL,
+        linkToResultsUrl: process.env.ALLURE_LAUNCH_URL,
       }
     ]
   ],
