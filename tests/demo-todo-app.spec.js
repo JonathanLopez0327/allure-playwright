@@ -34,7 +34,7 @@ test.describe('New Todo', () => {
     test.info().attach('Screenshot', { body: screenshotPath, contentType: 'image/png' });
 
     // Make sure the list now has two todo items.
-    await expect(page.getByTestId('todo-title')).toHaveText([
+    await expect(page.getByTestId('todo-titl')).toHaveText([
       TODO_ITEMS[0],
       TODO_ITEMS[1]
     ]);
