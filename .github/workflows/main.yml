@@ -1,3 +1,23 @@
+name: Run Playwright Tests with Allure Cloud
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      ALLURE_JOB_RUN_ID:
+        description: ALLURE_JOB_RUN_ID service parameter. Leave blank.
+      ALLURE_USERNAME:
+        description: ALLURE_USERNAME service parameter. Leave blank.
+  schedule:
+    - cron: '0 */2 * * *'
+
+env:
+  ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+  ALLURE_ENDPOINT: ${{ secrets.ALLURE_ENDPOINT }}
+  ALLURE_PROJECT_ID: 1
+  ALLURE_RESULTS: allure-results
+
 jobs:
   playwright-tests:
     runs-on: ubuntu-latest
@@ -42,3 +62,5 @@ jobs:
 
       - name: Debug .env
         run: cat .env
+
+
